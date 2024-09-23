@@ -39,16 +39,20 @@ class OlxspiderSpider(scrapy.Spider):
                 price_dict = None
 
             # Extract image URL from data-aut-id="defaultImg"
-            image_url = response.css('[data-aut-id="defaultImg"] img::attr(src)').get(default='').strip()
+            #image_url = response.css('[data-aut-id="defaultImg"] img::attr(src)').get(default='').strip()
+            image_url = response.css('div._23Jeb figure img::attr(src)').get(default='').strip()
+
 
             # Extract description
-            description = response.css('[data-aut-id="itemDescriptionContent"]::text').get(default='').strip()
+            #description = response.css('[data-aut-id="itemDescriptionContent"]::text').get(default='').strip()
+            description = response.css('[data-aut-id="itemDescriptionContent"] p::text').get(default='').strip()
+
 
             # Extract seller_name from the anchor tag with class _2tgkn
             seller_name = response.css('._2tgkn a::attr(title)').get(default='').strip()
 
             # Extract location from div with class _3Uj8e
-            location = response.css('div._3Uj8e::text').get(default='').strip()
+            location = response.css('span._1RkZP::text').get(default='').strip()
 
             # Extract property_type from class B6X7c
             property_type = response.css('.B6X7c[data-aut-id="value_type"]::text').get(default='').strip()
